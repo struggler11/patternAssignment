@@ -8,8 +8,8 @@ const main = function(){
   let arguments = process.argv;
   let categorizeArguments = groupArguments(process.argv);
   let patterns = generatePatterns(categorizeArguments);
-  let mergedPatterns = zipPatterns(patterns[0],patterns[1]); 
-  console.log(mergedPatterns);
+  let mergedPattern = zipPatterns(patterns);
+  console.log(mergedPattern.join('\n'));
 }
 
 main();

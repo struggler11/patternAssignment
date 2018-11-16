@@ -173,6 +173,7 @@ const generatePatterns = function(argument){
     patterns.push(pattern);
     index++;
   }
+  patterns = equateArrayElements(patterns);
   return patterns;
 }
 
@@ -192,13 +193,42 @@ const selectTypeOfPattern = function(type, width, height){
   }
 }
 
-const zipPatterns = function(pattern1, pattern2){
-  let maxLength = Math.min(pattern1.length, pattern2.length);
-  let zippedPattern = [];
-  for(let index = 0; index < maxLength; index++){
-    zippedPattern[index] = [pattern1[index],pattern2[index]].join('');
-  };
-  return zippedPattern.join('\n');
+const getElementsLength = function(array){
+  let arrayElementsLength = [];
+  for(element of array){
+    arrayElementsLength.push(element.length);
+  }
+  return arrayElementsLength;
+};
+
+const pushSpace = function(array, times){
+  let lengths = getElementsLength(array);
+  let numOfspaces = array[array.length-1].length;
+  let space = fillWithSpace(numOfspaces);
+  for(let index = 0; index < times; index++){
+    array.unshift(space);
+  }
+  return array;
+}
+
+const equateArrayElements = function(array){
+  let lengths = getElementsLength(array);
+  let maxLength = Math.max.apply(0, lengths);
+  for(let index = 0; index < array.length; index++){
+    pushSpace(array[index], maxLength - lengths[index]);
+  }
+  return array;
+}
+
+const zipPatterns = function(pattern){
+  let result = [];
+  for(let index = 0; index < pattern[0].length; index++){
+    result[index] = '';
+    for(let i_index = 0; i_index < pattern.length; i_index++){
+      result[index] = result[index] + ' '+ pattern[i_index][index]; 
+    }
+  }
+  return result;
 };
 
 exports.drawTriangle = drawTriangle;
