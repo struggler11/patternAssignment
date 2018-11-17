@@ -194,11 +194,9 @@ const selectTypeOfPattern = function(type, width, height){
 }
 
 const getElementsLength = function(array){
-  let arrayElementsLength = [];
-  for(element of array){
-    arrayElementsLength.push(element.length);
-  }
-  return arrayElementsLength;
+  return array.map(function(element){
+    return element.length;
+  });
 };
 
 const pushSpace = function(array, times){
